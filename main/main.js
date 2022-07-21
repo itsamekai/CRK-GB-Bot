@@ -36,7 +36,8 @@ client.on('ready', async () => {
 
         // dragon is defeated
         if (damage > 0 && levelValue > 0) {
-          let totalDamage 
+          // let totalDamage 
+          // need to add total damage with drag hp
           currentLevel = newLevel
           currentHealth = newHealth
           // testChannel.send(damage + " damage has been done. Level " + newLevel + " dragon is now up with " + newHealth + " HP.")
