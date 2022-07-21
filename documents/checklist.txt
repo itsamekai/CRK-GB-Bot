@@ -1,0 +1,5 @@
+1. get dragon health screenshot (DONE)
+2. read dragon health with screenshot given (DONE)
+
+3. get dragon level screenshot (DONE)
+4. read dragon level with screenshot given (DONE)
