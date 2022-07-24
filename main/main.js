@@ -1,5 +1,4 @@
-const { refreshClick, readHealthLevel, sleep} = require('../lib/readData') 
-const { healthImage } = require('../lib/screenshot')
+const { refreshClick, getDmgHealth, sleep} = require('../lib/readData') 
 const { Client, GatewayIntentBits } = require('discord.js');
 const moment = require('moment')
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -11,10 +10,12 @@ let currentLevel, currentHealth
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    const testChannel = client.channels.cache.get('999236399536537610')
+    // GH: 1000021815147634718
+    // test: 999236399536537610
+    const testChannel = client.channels.cache.get('1000021815147634718')
     // get data for once.
     console.log("---Initializing first data---")
-    const initialValues = await getInfo()
+    const initialValues = await getDmgHealth()
     currentLevel = initialValues[0]
     currentHealth = initialValues[1]
     let x = 1
@@ -26,7 +27,7 @@ client.on('ready', async () => {
         await refreshClick()
         await sleep(1000)
          // 0 = health, 1 = level, 2 = damage dealt, 3 = level difference
-        const values = await getInfo()
+        const values = await getDmgHealth()
         let newLevel = values[0]
         let newHealth = values[1]
         let damage = Math.abs(currentHealth - newHealth)
@@ -66,20 +67,7 @@ client.on('ready', async () => {
   client.login(process.env.BOT_TOKEN)
   
 
-  async function getInfo() {
-    let state = []
-    
-    const imagePath = await healthImage()
-    let level = await readHealthLevel(imagePath[0], 'lvl')
-    level = level.replace(/(\r\n|\n|\r)/gm, "");
-    level = level.slice(3)
-    state.push(level)   
-    let health = await readHealthLevel(imagePath[1], 'hp') 
-    health = health.substring(0, health.indexOf('('))  
-    state.push(health)
-    console.log(state)
-    return state
-  }
+
 
   function addCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
