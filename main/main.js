@@ -14,14 +14,17 @@ client.on('ready', async () => {
     // GH: 1000021815147634718
     // test: 999236399536537610
     const testChannel = client.channels.cache.get('1000021815147634718')
-    
+    // testChannel.send("test: <a:cleanup:968974523938508821> <:pinksalute:966121040692539422> <a:RVDragon:1001399138623164476> ")
     console.log("---Initializing first data---")
     // for calculating time elapsed
     const initialTime = new Date()
     // get player and player attack counts
-    let attackCounts = await getPlayerAttackCount()
-    let sortedAttacks = sortObject(attackCounts)
-    console.log("sorted attacks original state:\n" + JSON.stringify(sortedAttacks))
+    let attackCounts = {}
+    let sortedAttacks = {}
+    attackCounts = await getPlayerAttackCount()
+    sortedAttacks = sortObject(attackCounts)
+    console.log("sorted attacks original state:")
+    console.log(sortedAttacks)
 
     // get hp and level
     const initialValues = await getDmgHealth()
@@ -32,7 +35,7 @@ client.on('ready', async () => {
     console.log("time elapsed at initialization: " + Math.round((finalTime - initialTime) / 1000)) 
     let x = 1
     while (true) {
-      await sleep(30000)
+      await sleep(10000)
       console.log("---checking drag status now, count= " + x + "---")
       try {
         const startTime = new Date()
@@ -53,6 +56,7 @@ client.on('ready', async () => {
         if (damage > 0 && levelValue > 0) {
           // let totalDamage 
           // need to add total damage with drag hp
+          let beforeHealth = currentHealth
           currentLevel = newLevel
           currentHealth = newHealth
           let newCount = await getPlayerAttackCount()
@@ -60,7 +64,10 @@ client.on('ready', async () => {
           let attackers = getAttackers(sortedAttacks, sortedNewCount)
           sortedAttacks = sortedNewCount
           let oldLvl = currentLevel - 1
-          testChannel.send("Level " + oldLvl + " dragon has been swept by " + attackers + ". Lv " + newLevel + " dragon is now up with " + addCommas(newHealth) + " HP.")
+
+          testChannel.send("<a:cleanup:968974523938508821> Lv.**" + oldLvl + "** Dragon has been swept! <a:cleanup:968974523938508821>\n**| " 
+          + attackers + "** has swept the dragon with **" + addCommas(beforeHealth) + "** left. <:pinksalute:966121040692539422>\n**|** Lvl. **" 
+          + newLevel + "** dragon up with **" + addCommas(newHealth) + "** hp. <a:RVDragon:1001399138623164476>" )
           .then(message => console.log(`Sent message: ${message.content}`))
           .catch(console.error);
           
@@ -71,7 +78,11 @@ client.on('ready', async () => {
           let sortedNewCount = sortObject(newCount)
           let attackers = getAttackers(sortedAttacks, sortedNewCount)
           sortedAttacks = sortedNewCount
-          testChannel.send(attackers + " has dealt " + addCommas(damage) + " damage to Lv." + currentLevel + " dragon. " + addCommas(newHealth) + " HP left.")
+          let cleanupEmote = "<a:cleanup:968974523938508821> <a:cleanup:968974523938508821> <a:cleanup:968974523938508821> <a:cleanup:968974523938508821> <a:cleanup:968974523938508821>"
+          testChannel.send("**Lvl " + currentLevel + "** Dragon <a:RVDragon:1001399138623164476> \n **| " 
+          + attackers + "** has dealt **" + addCommas(damage) + "** damage.\n **| " 
+          + addCommas(newHealth) 
+          + "** HP remaining! \n" + cleanupEmote)
           .then(message => console.log(`Sent message: ${message.content}`))
           .catch(console.error);      
         }
