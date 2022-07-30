@@ -39,7 +39,7 @@ const second = [
   'Brenguks',       'Cage',
   'ChocoMilt',      'CrunchyBiscuit',
   'DakinaMGF',      'EboyCookies',
-  'EgirICookies',   'Fartlicious',
+  'EgirlCookies',   'Fartlicious',
   'IcedGemBiscuit', 'Interval',
   'MarshMallow',    'Milderror',
   'NovichCookie',   'Parfait지너스',
@@ -84,43 +84,39 @@ const test1 = {
 }
 
 const test2 = {
-  'Astær': 0,
-  BadDragons: 0,
-  BigBadCookie: '1',
+  Fartlicious: 0,
+  DakinaMGF: 0,
+  ChocoMilt: 0,
   BiscoctusAmogus: '1',
-  BiscoffButter: '1',
+  Cage: '1',
   Bitcoin: '1',
-  Brenguks: '2',
-  Cage: '2',
-  ChocoMilt: '2',
-  CrunchyBiscuit: '2',
-  DakinaMGF: '3',
-  EboyCookies: '3',
-  EgirICookies: '3',
-  Fartlicious: '3',
-  IcedGemBiscuit: '3',
-  Interval: '3',
-  MarshMallow: '3',
-  Milderror: '3',
-  NovichCookie: '3',
-  'Parfait지너스': '3',
-  RamenCookie: '3',
-  Shiguling: '3',
-  Tatimaru: '3',
-  TheControlCastle: '3',
-  TheRealAubrey: '3',
-  VolatileQueefs: '3',
+  EgirICookies: '2',
+  BadDragons: '2',
+  VolatileQueefs: '2',
+  NovichCookie: '2',
+  'Astær': '2',
+  BigBadCookie: '2',
   asagai: '3',
+  EboyCookies: '3',
+  BiscoffButter: '3',
+  Milderror: '3',
   ridleo: '3',
+  Shiguling: '3',
+  MarshMallow: '3',
+  Interval: '3',
+  IcedGemBiscuit: '3',
+  'Parfait지너스': '3',
   twinleeaf: '3',
-  xinlin: '3'
+  TheControlCastle: '3',
+  Brenguks: '3',
+  RamenCookie: '3',
+  xinlin: '3',
+  Tatimaru: '3',
+  CrunchyBiscuit: '3',
+  TheRealAubrey: '3'
 }
 
-async function main() {
-  await getPlayerAttackCount()
-}
-
-main()
+console.log(JSON.stringify(correctNames) === JSON.stringify(correctName2))
 // // const rectangle = { left: 914, top: 915, width: 320, height: 50 };
 // const rectangle = { left: 924, top: 922, width: 309, height: 31 };
 // // left is the distance from the upper-left corner of the bounding box, to the left border of the image.

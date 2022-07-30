@@ -35,7 +35,7 @@ client.on('ready', async () => {
     console.log("time elapsed at initialization: " + Math.round((finalTime - initialTime) / 1000)) 
     let x = 1
     while (true) {
-      await sleep(10000)
+      await sleep(20000)
       console.log("---checking drag status now, count= " + x + "---")
       try {
         const startTime = new Date()
