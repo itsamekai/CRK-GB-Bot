@@ -9,164 +9,67 @@ const { default: xrandr } = require('xrandr');
 const { Client, GatewayIntentBits } = require('discord.js');
 const { refreshClick } = require('../lib/readData');
 const Jimp = require('jimp');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+// const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 require('dotenv').config()
+const membersID = require('../id.json')
 
-const worker = createWorker();
 
-const correctNames = [
-  'Astær',          'BadDragons',
-  'BigBadCookie',   'BiscoctusAmogus',
-  'BiscoffButter',  'Bitcoin',
-  'Brenguks',       'Cage',
-  'ChocoMilt',      'CrunchyBiscuit',
-  'DakinaMGF',      'EboyCookies',
-  'EgirICookies',   'Fartlicious',
-  'IcedGemBiscuit', 'Interval',
-  'MarshMallow',    'Milderror',
-  'NovichCookie',   'Parfait지너스',
-  'RamenCookie',    'Shiguling',
-  'Tatimaru',       'TheControlCastle',
-  'TheRealAubrey',  'VolatileQueefs',
-  'asagai',         'ridleo',
-  'twinleeaf',      'xinlin'
-]
-
-const second = [
-  'Astær',          'BadDragons',
-  'BigBadCookie',   'BiscoctusAmogus',
-  'BiscoffButter',  'Bitcoin',
-  'Brenguks',       'Cage',
-  'ChocoMilt',      'CrunchyBiscuit',
-  'DakinaMGF',      'EboyCookies',
-  'EgirlCookies',   'Fartlicious',
-  'IcedGemBiscuit', 'Interval',
-  'MarshMallow',    'Milderror',
-  'NovichCookie',   'Parfait지너스',
-  'RamenCookie',    'Shiguling',
-  'Tatimaru',       'TheControlCastle',
-  'TheRealAubrey',  'VolatileQueefs',
-  'asagai',         'ridleo',
-  'twinleeaf',      'xinlin'
-]
-
-const test1 = {
-  'Astær': 0,
-  BadDragons: 0,
-  BigBadCookie: '1',
-  BiscoctusAmogus: '1',
-  BiscoffButter: '1',
-  Bitcoin: '1',
-  Brenguks: '2',
-  Cage: '2',
-  ChocoMilt: '2',
-  CrunchyBiscuit: '2',
-  DakinaMGF: '3',
-  EboyCookies: '3',
-  EgirICookies: '3',
+const a = {
+  Milderror: 3,
+  MarshMallow: 3,
+  Interval: 3,
+  Shiguling: 3,
+  DakinaMGF: 3,
+  VolatileQueefs: 3,
+  'Astær': 3,
+  ChocoMilt: 3,
+  Tatimaru: 3,
+  BiscoctusAmogus: '3',
+  ridleo: '3',
+  Cage: '1',
+  xinlin: '3',
+  Bitcoin: '3',
+  EgirlCookies: '3',
   Fartlicious: '3',
   IcedGemBiscuit: '3',
-  Interval: '3',
-  MarshMallow: '3',
-  Milderror: '3',
-  NovichCookie: '3',
   'Parfait지너스': '3',
-  RamenCookie: '3',
-  Shiguling: '3',
-  Tatimaru: '3',
-  TheControlCastle: '3',
-  TheRealAubrey: '3',
-  VolatileQueefs: '3',
-  asagai: '3',
-  ridleo: '3',
-  twinleeaf: '3',
-  xinlin: '3'
-}
-
-const test2 = {
-  Fartlicious: 0,
-  DakinaMGF: 0,
-  ChocoMilt: 0,
-  BiscoctusAmogus: '1',
-  Cage: '1',
-  Bitcoin: '1',
-  EgirICookies: '2',
-  BadDragons: '2',
-  VolatileQueefs: '2',
-  NovichCookie: '2',
-  'Astær': '2',
-  BigBadCookie: '2',
   asagai: '3',
   EboyCookies: '3',
   BiscoffButter: '3',
-  Milderror: '3',
-  ridleo: '3',
-  Shiguling: '3',
-  MarshMallow: '3',
-  Interval: '3',
-  IcedGemBiscuit: '3',
-  'Parfait지너스': '3',
+  BadDragons: '3',
   twinleeaf: '3',
-  TheControlCastle: '3',
   Brenguks: '3',
+  TheControlCastle: '3',
   RamenCookie: '3',
-  xinlin: '3',
-  Tatimaru: '3',
+  NovichCookie: '3',
   CrunchyBiscuit: '3',
-  TheRealAubrey: '3'
+  TheRealAubrey: '3',
+  BigBadCookie: '3'
 }
 
-console.log(JSON.stringify(correctNames) === JSON.stringify(correctName2))
-// // const rectangle = { left: 914, top: 915, width: 320, height: 50 };
-// const rectangle = { left: 924, top: 922, width: 309, height: 31 };
-// // left is the distance from the upper-left corner of the bounding box, to the left border of the image.
-// // top is the distance from the upper-left corner of the bounding box, to the top border of the image.
-// // width and height are the width and height of the bounding box.
-// // const rectangle = { left: 1051, top: 797, width: 208, height: 65 };
-
-// https://github.com/tesseract-ocr/tesseract/blob/main/doc/tesseract.1.asc
 
 
-const levelConfig = {
-  lang: "eng",
-  oem: 3,
-  psm: 3,
-  tessedit_char_whitelist: '0123456789Lv.'
-}
+// let zeros = ''
+// let ones = ''
+// let twos = ''
+// let threes = ''
 
-const healthConfig = {
-  lang: "eng",
-  oem: 3,
-  psm: 3,
-  tessedit_char_whitelist: '0123456789()%'
-}
-
-// client.on('ready', async () => {
-  
-//   console.log(`Logged in as ${client.user.tag}!`);
-//   const channel = client.channels.cache.get('999236399536537610')
-
-//   let level = '100'
-//   let newlevel = '101'
-//   let name = 'Cage'
-//   let damage = 25512345
-//   let health = 133444555
-//   let newhealth = 12312313213
-//   channel.send("**Lv. " + level + "** Dragon :birb: \n **| " + name + "** has dealt **" + addCommas(damage) + "** damage.\n **| " + addCommas(health) + "** HP remaining! \n :cleanup: :cleanup: cleanup: :cleanup: :cleanup:")
-//   channel.send(":cleanup: Lv.**" + level + "** Dragon has been swept! :cleanup: \n**| " + name + "** has swept the dragon with **" + addCommas(health) + "** left. :pinksalute:\n**|** Lvl. **" + newlevel + "** dragon up with **" + addCommas(newhealth) + "** hp. :RVDragon:" )
-//   .then(message => console.log(`Sent message: ${message.content}`))
-//   .catch(console.error);    
-// })
-
-// client.login(process.env.BOT_TOKEN)
-// async function main() {
-//   const initialTime = new Date()
-//   await refreshClick()
-//   const finalTime = new Date()
-//   console.log("time elapsed: " + Math.round((finalTime - initialTime) / 1000)) 
+// for (const name in a) {
+//   console.log(a[name])
+//   if (a[name] == 0) zeros += "• " + name + "\n"
+//   if (a[name] == 1) ones += "• " + name + "\n"
+//   if (a[name] == 2) twos += "• " + name + "\n"
+//   if (a[name] == 3) threes += "• " + name + "\n"
 // }
 
+// let output = "0/3: \n" + zeros + "\n1/3: \n" + ones + "\n2/3:\n" + twos + "\n3/3:\n" + threes
+// console.log(output)
 
+let output = ''
+// for (let i = 0; 5 > i; i++) {
+//   output += " "
+// }
+console.log(output.length)
 
 function addCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
