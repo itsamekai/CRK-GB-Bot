@@ -1,3 +1,3 @@
-CRK Dragon Bot - Makes use of OCR to read data from in game.
+CRK Guild Battle Bot - Makes use of OCR to read data from in game.
 
-TODO: add VM compatibility
+side note: have stopped maintaining it
